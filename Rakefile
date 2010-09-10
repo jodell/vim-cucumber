@@ -8,7 +8,8 @@ task :install do
     next unless VI_DIRS.include? dir
     FileList["#{dir}/*"].each { |f| 
       puts "Installing #{f} to ~/.vim/#{f}"
-      FileUtils.mkdir File.expand_path(File.dirname("~/.vim/#{f}"))
+      dir = File.expand_path(File.dirname("~/.vim/#{f}"))
+      FileUtils.mkdir dir unless File.exist? dir
       FileUtils.cp f, File.expand_path("~/.vim/#{f}")
     }
   end
